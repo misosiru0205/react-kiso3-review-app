@@ -1,38 +1,64 @@
-.App {
-  text-align: center;
+html{
+    height: 100%;
+    background-color: rgb(219, 219, 219);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.head{
+    width: 100%;
+    height: 150px;
+    background-color: rgb(98, 169, 101);
+    margin-top: 0;
+    position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.title{
+    color: white;
+    font-size: 36px;
+    position: absolute;
+    left: 5%;
+    top: 10%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.createthread{
+    color: white;
+    position: absolute;
+    right: 5%;
+    top: 45%;
 }
 
-.App-link {
-  color: #61dafb;
+.list{
+    display: grid;
+    place-items: center;
+    height: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.thread{
+    font-size: 20px;
+    margin: 0px;
+    width: 400px;
+    height: 40px;
+    text-align: left;
+    border:1px solid;
+    border-color: black;
+    background-color: white;
+    list-style: none;
+}
+
+.post{
+    white-space: pre-wrap;
+    font-size: 16px;
+    margin: 4px;
+    width: 400px;
+    min-height: 45px;
+    height: auto;
+    text-align: left;
+    border:1px solid;
+    border-color: black;
+    background-color: white;
+}
+
+.textarea{
+    resize: none;
+    width: 400px;
+    height: 50px;
 }
