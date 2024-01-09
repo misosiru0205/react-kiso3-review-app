@@ -19,10 +19,12 @@ export function App (){
     function ClickText(){
         if(Email === ""){
         setResultEmail("Emailを入力してください")}
+        else{setResultEmail("")}
 
         if(Name === ""){
         setResultName("名前を入力してください")
         }
+        else{setResultName("")}
     }
 
     return(
