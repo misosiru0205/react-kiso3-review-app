@@ -1,4 +1,4 @@
-/* eslint-disable spaced-comment */
+/* eslint-disable import/no-named-as-default */
 import React from "react"; 
 import * as ReactDOM from 'react-dom/client'
 
@@ -7,6 +7,8 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 
 //表示するコンポーネントの呼び出し
 import App from "./App";
+import Signup from "./Signup";
+
 
 
 const root = document.getElementById('root')
@@ -15,6 +17,7 @@ reactRoot.render(
     <BrowserRouter>
     <Routes>
         <Route path='/' element={<App/>}/>
+        <Route path='/signin' element={<Signup/>}/>
     </Routes>
     </BrowserRouter>
 )

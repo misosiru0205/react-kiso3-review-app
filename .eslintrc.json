@@ -12,6 +12,8 @@
         "react/react-in-jsx-scope":"off",
         "react/prop-types":"off",
         "react/destructuring-assignment":"off",
-        "spaced-comment":"off"
+        "spaced-comment":"off",
+        "jsx-a11y/label-has-associated-control" :"off",
+        "no-console":"off"
     }
 }
