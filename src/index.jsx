@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 //react-routes-dom の呼び出し 画面変遷に必要
 
 //表示するコンポーネントの呼び出し
-import App from "./App";
+import App from "./pages/App";
 
 const root = document.getElementById("root");
 const reactRoot = ReactDOM.createRoot(root);

@@ -11,9 +11,9 @@ export default function Signup() {
   const [errormessage, setErrormessage] = useState("");
   const [icon, setIcon] = useState();
   const [url, seturl] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
-  const [cookies,setCookie,removeCookie] = useCookies()
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const {
     register,
@@ -26,7 +26,8 @@ export default function Signup() {
   const link = "/login";
   const linkTitle = "ログイン";
 
-  function handleChangeIcon(e) {//アイコンの変換
+  function handleChangeIcon(e) {
+    //アイコンの変換
     const file = e.target.files[0];
     // eslint-disable-next-line no-new
     new Compressor(file, {
@@ -50,41 +51,45 @@ export default function Signup() {
     setIcon("");
   }
 
-
-    const onSubmit = (data) =>{
-
+  const onSubmit = (data) => {
     const formData = new FormData();
     formData.append("icon", icon);
-    
+
     const object = {
       name: data.username,
       email: data.email,
       password: data.password,
     };
 
-    axios.
-    post("https://railway.bookreview.techtrain.dev/users",object
-    ).then((res)=>{
-      setCookie("token",res.data.token)
-      setCookie("log", true)
-      console.log(res.data.token)
+    axios
+      .post("https://railway.bookreview.techtrain.dev/users", object)
+      .then((res) => {
+        setCookie("token", res.data.token);
+        setCookie("log", true);
+        console.log(res.data.token);
 
-      axios.post("https://railway.bookreview.techtrain.dev/uploads",
-        formData,
-        {headers :{Authorization:`Bearer ${res.data.token}`}}
-        
-      ).then(()=>{
-        resetmessage()
-        reset()
-        navigate("/")
-      }).catch((err)=>{
-        console.log(err)
-        setErrormessage(`画像のアップロードに失敗しました : ${err.response.data.ErrorMessageJP}`)
+        axios
+          .post("https://railway.bookreview.techtrain.dev/uploads", formData, {
+            headers: { Authorization: `Bearer ${res.data.token}` },
+          })
+          .then(() => {
+            resetmessage();
+            reset();
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log(err);
+            setErrormessage(
+              `画像のアップロードに失敗しました : ${err.response.data.ErrorMessageJP}`,
+            );
+          });
       })
-    }).catch((err)=>{
-      setErrormessage(`サインアップに失敗しました : ${err.response.data.ErrorMessageJP}`)
-    })
-  }
+      .catch((err) => {
+        setErrormessage(
+          `サインアップに失敗しました : ${err.response.data.ErrorMessageJP}`,
+        );
+      });
+  };
 
   /*const onSubmit = async (data) => {
     const formData = new FormData();
@@ -132,10 +137,7 @@ export default function Signup() {
 
   return (
     <>
-      <Header
-        link={link}
-        linkTitle={linkTitle}
-      />
+      <Header link={link} linkTitle={linkTitle} />
       <main>
         <h2>ユーザー新規作成</h2>
         <p>{errormessage}</p>
@@ -195,10 +197,11 @@ export default function Signup() {
             <input
               {...register("checkpassword", {
                 required: { value: true, message: "入力が必須の項目です" },
-                validate:(text) =>{
-                  if(text !== watch("password")){
-                    return ("パスワードが一致していません")
-                  }},
+                validate: (text) => {
+                  if (text !== watch("password")) {
+                    return "パスワードが一致していません";
+                  }
+                },
               })}
               type="password"
               id="checkpassword"
@@ -218,7 +221,7 @@ export default function Signup() {
             />
           </label>
           <div className="iconview">
-            <img src={url} />
+            {url && <img src={url} alt="選択画像" />}
           </div>
           <br />
           <input type="submit" value="サインアップ" disabled={!isDirty} />

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import Header from "./Header";
@@ -40,6 +40,8 @@ export default function Login() {
         );
       });
   };
+
+  if(cookies.token !== null)return <Navigate to="/" replace />
 
   return (
     <>

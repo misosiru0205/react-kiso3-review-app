@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Signup from "./Signup";
+import Signup from "./pages/Signup";
 
 describe("Signup test", () => {
   beforeEach(() => {
