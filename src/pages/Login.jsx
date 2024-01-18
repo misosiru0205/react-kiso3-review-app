@@ -41,7 +41,7 @@ export default function Login() {
       });
   };
 
-  if(cookies.token !== null)return <Navigate to="/" replace />
+  if(cookies.log)return <Navigate to="/" replace />
 
   return (
     <>
