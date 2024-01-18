@@ -1,15 +1,26 @@
+/* eslint-disable consistent-return */
 import "./App.scss";
-import  Header  from "./Header";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import Signup from "./Signup";
+import Login from "./Login";
+import Home from "./Home";
 
 export default function App() {
-
-  const title = "書籍レビューApp";
+  const [cookies] = useCookies();
 
   return (
-    <>
-    <Header title={title}/>
-    <a href="http://localhost:3000/signup">サインアップ</a>
-    </>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/"
+            element={cookies.log ? <Home /> : <Navigate to="login" />}
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
-

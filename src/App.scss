@@ -17,4 +17,38 @@ header{
     left: 5%;
     top: 10%;
   }
+
+  .titlecontainer{
+position: absolute;
+    right: 5%;
+    margin-top: 50px;
+  a{
+    color: white  
+  }
+}
+}
+
+main{
+  place-items: center;
+  display: grid;
+
+  form{
+  label{
+    place-items: center;
+  display: grid;
+    
+
+    input{
+      width: 200px;
+      
+    }
+    #icon{
+      width: auto;
+    }
+  }
+  .iconview{
+    display: grid;
+    place-items:center;
+  }
+}
 }
