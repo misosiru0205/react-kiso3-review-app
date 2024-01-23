@@ -1,19 +1,25 @@
+/* eslint-disable no-new */
 /* eslint-disable consistent-return */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Compressor from "compressorjs";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
+import { signIn } from "../authSlice";
+import { url } from "../const";
 
 export default function Signup() {
   const [errormessage, setErrormessage] = useState("");
   const [icon, setIcon] = useState();
-  const [url, seturl] = useState("");
-  const navigate = useNavigate();
+  const [iconUrl, setIconUrl] = useState("");
+  const navigate = useNavigate();//Navigateの設定
+  const dispatch = useDispatch();//Dispatchの設定
+  const auth = useSelector((state) => state.auth.isSignIn);//ログイン状態の取得
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies();//Cookieの設定
 
   const {
     register,
@@ -29,7 +35,7 @@ export default function Signup() {
   function handleChangeIcon(e) {
     //アイコンの変換
     const file = e.target.files[0];
-    // eslint-disable-next-line no-new
+
     new Compressor(file, {
       quality: 0.8,
       maxWidth: 100,
@@ -37,7 +43,7 @@ export default function Signup() {
       convertSize: Infinity,
       success(result) {
         setIcon(result);
-        seturl(window.URL.createObjectURL(result));
+        setIconUrl(window.URL.createObjectURL(result));
       },
       error(err) {
         console.log(err);
@@ -47,7 +53,7 @@ export default function Signup() {
 
   function resetmessage() {
     setErrormessage("");
-    seturl("");
+    setIconUrl("");
     setIcon("");
   }
 
@@ -62,23 +68,21 @@ export default function Signup() {
     };
 
     axios
-      .post("https://railway.bookreview.techtrain.dev/users", object)
+      .post(`${url}/users`, object)
       .then((res) => {
-        setCookie("token", res.data.token);
-        setCookie("log", true);
-        console.log(res.data.token);
+        setCookie("token", res.data.token);//トークンの設定
+        dispatch(signIn());
 
         axios
-          .post("https://railway.bookreview.techtrain.dev/uploads", formData, {
+          .post(`${url}/uploads`, formData, {
             headers: { Authorization: `Bearer ${res.data.token}` },
           })
           .then(() => {
             resetmessage();
             reset();
-            navigate("/");
+            navigate("/");//レビュー一覧画面に遷移
           })
           .catch((err) => {
-            console.log(err);
             setErrormessage(
               `画像のアップロードに失敗しました : ${err.response.data.ErrorMessageJP}`,
             );
@@ -91,49 +95,9 @@ export default function Signup() {
       });
   };
 
-  /*const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append("icon", icon);
 
-    try {
-      const object = {
-        name: data.username,
-        email: data.email,
-        password: data.password,
-      };
-
-      if (data.password !== data.checkpassword) {
-        throw new Error("パスワードが一致しません");
-      }
-
-      await fetch("https://railway.bookreview.techtrain.dev/users", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(object),
-      })
-        .then(async (res) => {
-          const responceObject = await res.json();
-          if (res.status !== 200) {
-            throw new Error(
-              `サインアップに失敗しました。${responceObject.ErrorMessageJP}`,
-            );
-          }
-          return responceObject.token;
-        })
-        .then(async (token) => {
-          await fetch("https://railway.bookreview.techtrain.dev/uploads", {
-            method: "POST",
-            headers: { Accept: "application/json", Authorization: `Bearer ${token}` },
-            body: formData,
-          });
-        });
-      reset();
-      resetmessage();
-      navigate("/")
-    } catch (err) {
-      setErrormessage(`${err}`);
-    }
-  };*/
+  //サインインしている場合はレビュー一覧に飛ぶ
+  if (auth === true) return <Navigate to="/" replace />;
 
   return (
     <>
@@ -221,7 +185,7 @@ export default function Signup() {
             />
           </label>
           <div className="iconview">
-            {url && <img src={url} alt="選択画像" />}
+            {iconUrl && <img src={iconUrl} alt="選択画像" />}
           </div>
           <br />
           <input type="submit" value="サインアップ" disabled={!isDirty} />

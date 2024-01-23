@@ -1,10 +1,8 @@
+.BookList{
+    display: grid;
+    place-content: center;   
 
-    .books-List{
-        display: grid;
-        place-content: center;       
+    .BookList__Title{
+        list-style: none;
     }
-    
-
-.books-List__BookTitle{
-            list-style: none;
-        }
+}

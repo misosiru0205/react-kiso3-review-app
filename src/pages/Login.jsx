@@ -1,16 +1,21 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate,Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { signIn } from "../authSlice";
 import Header from "./Header";
+import { url } from "../const";
 
 export default function Login() {
   const [errormessage, setErrormessage] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate();//Navigateの設定
+  const dispatch = useDispatch();//Dispatchの設定
+  const auth = useSelector((state) => state.auth.isSignIn);//ログイン状態の取得
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies();//Cookieの設定
 
   const {
     register,
@@ -24,15 +29,13 @@ export default function Login() {
 
   const onSubmit = (data) => {
     axios
-      .post("https://railway.bookreview.techtrain.dev/signin", data)
+      .post(`${url}/signin`, data)
       .then((res) => {
-        console.log(res);
-        console.log(res.data.token);
         setErrormessage("");
         reset();
-        setCookie("token", res.data.token);
-        setCookie("log", true);
-        navigate("/");
+        setCookie("token", res.data.token);//Cookieにトークンの保持
+        dispatch(signIn());//ログイン状態の更新
+        navigate("/");//レビュー一覧画面に遷移
       })
       .catch((err) => {
         setErrormessage(
@@ -41,7 +44,8 @@ export default function Login() {
       });
   };
 
-  if(cookies.log)return <Navigate to="/" replace />
+  //サインインしている場合はレビュー一覧に飛ぶ
+  if (auth === true) return <Navigate to="/" replace />;
 
   return (
     <>

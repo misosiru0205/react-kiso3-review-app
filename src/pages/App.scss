@@ -10,20 +10,23 @@ header{
   margin-top: 0;
   position: relative;
 
-  p{
+
+  h1{
     color: white;
-    font-size: 36px;
     position: absolute;
     left: 5%;
-    top: 10%;
+    top: 20%;
   }
 
-  .titlecontainer{
+  .LinkContainer{
 position: absolute;
     right: 5%;
-    margin-top: 50px;
+    margin-top: 60px;
   a{
     color: white  
+  }
+  .LinkContainer__username{
+    color: aliceblue;
   }
 }
 }
