@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const pagesSlice = createSlice({
   name: "pages",
-  initialState: {//初期値の設定
+  initialState: {
+    //初期値の設定
     value: 0,
   },
   reducers: {

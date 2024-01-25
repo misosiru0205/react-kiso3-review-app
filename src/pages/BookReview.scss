@@ -1,0 +1,22 @@
+.BookReview {
+  width: 95%;
+  display: flow-root;
+
+  .BookReview__Title {
+    text-align: center;
+  }
+
+  .BookReview__Url{
+
+    a{
+        word-break:break-word;
+    }
+  }
+
+  .BookReview__Detail {
+    //white-space: pre-wrap;
+  }
+  .BookReview__Review {
+   // white-space: pre-wrap;
+  }
+}

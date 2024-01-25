@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../authSlice";
@@ -7,37 +7,39 @@ function Header(props) {
   // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie, removeCookie] = useCookies();
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth.isSignIn);//ログイン状態の取得
+  const auth = useSelector((state) => state.auth.isSignIn); //ログイン状態の取得
+  const location = useLocation();
 
   function logout() {
-    removeCookie("token");//トークンの削除
-    removeCookie("name")
-    dispatch(signOut());//ログイン状態をfalseにする
+    removeCookie("token"); //トークンの削除
+    removeCookie("name");
+    dispatch(signOut()); //ログイン状態をfalseにする
   }
 
   return (
     <header>
-      <div>
+      <div className="HeaderTitle">
         <h1>書籍レビューApp</h1>
+        {cookies.name && <p className="username">Name : {cookies.name}</p>}
       </div>
 
       <div className="LinkContainer">
         {auth ? (
-          <div><Link to="/login" onClick={() => logout()}>
-            ログアウト
-          </Link>
-          <br/>
-          <Link className="LinkContainer__username" to="/profile">{props.username}</Link>
-          <Link  to="/">{props.homeTitle}</Link></div>
+          <div>
+            <Link to="/login" onClick={() => logout()}>
+              ログアウト
+            </Link>
+            <br />
+            {location.pathname === "/" && (
+              <Link to="/profile">ユーザーネーム更新</Link>
+            )}
+            {location.pathname !== "/" && <Link to="/">ホーム</Link>}
+          </div>
         ) : (
           <>
-          <Link  to={props.link}>
-            {props.linkTitle}
-          </Link>
-          <br/>
-          {((cookies.name === undefined) && <Link  to="/">
-            ホーム
-          </Link>)}
+            <Link to={props.link}>{props.linkTitle}</Link>
+            <br />
+            {location.pathname !== "/" && <Link to="/">ホーム</Link>}
           </>
         )}
       </div>

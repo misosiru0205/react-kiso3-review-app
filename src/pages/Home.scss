@@ -1,8 +1,21 @@
-.BookList{
-    display: grid;
-    place-content: center;   
+main {
+  display: grid;
+  place-items: center;
 
-    .BookList__Title{
-        list-style: none;
+  .BookList {
+    display: grid;
+    place-content: center;
+
+    .BookList__Title {
+      list-style: none;
+      width: 350px;
+      height: 30px;
+      background-color: white;
+      border: 1px solid;
+      border-color: black;
+      margin-bottom: 2px;
+      border-radius: 5px;
+      text-align: center;
     }
+  }
 }

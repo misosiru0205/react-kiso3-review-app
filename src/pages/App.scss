@@ -1,57 +1,74 @@
-html{
+html {
   height: 100%;
   background-color: rgb(219, 219, 219);
 }
 
-header{
+header {
   width: 100%;
   height: 150px;
   background-color: rgb(87, 155, 150);
   margin-top: 0;
   position: relative;
 
-
-  h1{
-    color: white;
+  .HeaderTitle {
+    display: grid;
     position: absolute;
     left: 5%;
     top: 20%;
+    h1 {
+      color: white;
+      margin-bottom: 5px;
+    }
+    .username {
+      color: aliceblue;
+      margin: 0;
+    }
   }
 
-  .LinkContainer{
-position: absolute;
+  .LinkContainer {
+    text-align: end;
+    position: absolute;
     right: 5%;
     margin-top: 60px;
-  a{
-    color: white  
+    a {
+      color: white;
+    }
   }
-  .LinkContainer__username{
-    color: aliceblue;
-  }
-}
 }
 
-main{
+main {
   place-items: center;
   display: grid;
 
-  form{
-  label{
-    place-items: center;
-  display: grid;
-    
+  form {
+    label {
+      place-items: center;
+      display: grid;
+      margin-bottom: 10px;
 
-    input{
-      width: 200px;
-      
+      input {
+        width: 350px;
+      }
+
+      .EditProfile__Name--Input {
+        width: 200px;
+      }
+      #icon {
+        width: auto;
+      }
+      textarea {
+        width: 350px;
+        height: 200px;
+        resize: none;
+      }
+
+      .ReviewForm__detail {
+        height: 100px;
+      }
     }
-    #icon{
-      width: auto;
+    .iconview {
+      display: grid;
+      place-items: center;
     }
   }
-  .iconview{
-    display: grid;
-    place-items:center;
-  }
-}
 }

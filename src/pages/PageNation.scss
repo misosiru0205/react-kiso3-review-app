@@ -1,18 +1,17 @@
-.PagiNation{
-    width: 100%;
+.PagiNation {
+  width: 100%;
   display: grid;
-    place-content: center;
-  .PagiNation__count{
+  place-content: center;
+  .PagiNation__count {
     text-align: center;
   }
-    
-  .PagiNation__button{
-    input{
+
+  .PagiNation__button {
+    input {
       margin: 5px;
       border: 1px solid #000000;
-    border-radius: 5px;
-    background-color: #fff;
+      border-radius: 5px;
+      background-color: #fff;
     }
-    
   }
 }

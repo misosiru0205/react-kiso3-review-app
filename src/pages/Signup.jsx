@@ -15,11 +15,11 @@ export default function Signup() {
   const [errormessage, setErrormessage] = useState("");
   const [icon, setIcon] = useState();
   const [iconUrl, setIconUrl] = useState("");
-  const navigate = useNavigate();//Navigateの設定
-  const dispatch = useDispatch();//Dispatchの設定
-  const auth = useSelector((state) => state.auth.isSignIn);//ログイン状態の取得
+  const navigate = useNavigate(); //Navigateの設定
+  const dispatch = useDispatch(); //Dispatchの設定
+  const auth = useSelector((state) => state.auth.isSignIn); //ログイン状態の取得
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies();//Cookieの設定
+  const [cookies, setCookie, removeCookie] = useCookies(); //Cookieの設定
 
   const {
     register,
@@ -70,7 +70,7 @@ export default function Signup() {
     axios
       .post(`${url}/users`, object)
       .then((res) => {
-        setCookie("token", res.data.token);//トークンの設定
+        setCookie("token", res.data.token); //トークンの設定
         dispatch(signIn());
 
         axios
@@ -80,7 +80,7 @@ export default function Signup() {
           .then(() => {
             resetmessage();
             reset();
-            navigate("/");//レビュー一覧画面に遷移
+            navigate("/"); //レビュー一覧画面に遷移
           })
           .catch((err) => {
             setErrormessage(
@@ -94,7 +94,6 @@ export default function Signup() {
         );
       });
   };
-
 
   //サインインしている場合はレビュー一覧に飛ぶ
   if (auth === true) return <Navigate to="/" replace />;

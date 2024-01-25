@@ -28,8 +28,8 @@
   "scripts": {
     "lint": "eslint src/**/*.{js,jsx}",
     "lint:fix": "eslint --fix src/**/*.{js,jsx}",
-    "prettier:c": "prettier --check src/**/*.{js,jsx,sass,css}",
-    "prettier:w": "prettier --write src/**/*.{js,jsx,sass,css}",
+    "prettier:c": "prettier --check src/**/*.{js,jsx,scss,css}",
+    "prettier:w": "prettier --write src/**/*.{js,jsx,scss,css}",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -11,11 +11,11 @@ import { url } from "../const";
 
 export default function Login() {
   const [errormessage, setErrormessage] = useState("");
-  const navigate = useNavigate();//Navigateの設定
-  const dispatch = useDispatch();//Dispatchの設定
-  const auth = useSelector((state) => state.auth.isSignIn);//ログイン状態の取得
+  const navigate = useNavigate(); //Navigateの設定
+  const dispatch = useDispatch(); //Dispatchの設定
+  const auth = useSelector((state) => state.auth.isSignIn); //ログイン状態の取得
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies();//Cookieの設定
+  const [cookies, setCookie, removeCookie] = useCookies(); //Cookieの設定
 
   const {
     register,
@@ -33,9 +33,9 @@ export default function Login() {
       .then((res) => {
         setErrormessage("");
         reset();
-        setCookie("token", res.data.token);//Cookieにトークンの保持
-        dispatch(signIn());//ログイン状態の更新
-        navigate("/");//レビュー一覧画面に遷移
+        setCookie("token", res.data.token); //Cookieにトークンの保持
+        dispatch(signIn()); //ログイン状態の更新
+        navigate("/"); //レビュー一覧画面に遷移
       })
       .catch((err) => {
         setErrormessage(
