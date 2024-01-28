@@ -36,6 +36,11 @@ header {
   }
 }
 
+.Loading {
+  display: grid;
+  place-content: center;
+}
+
 main {
   place-items: center;
   display: grid;

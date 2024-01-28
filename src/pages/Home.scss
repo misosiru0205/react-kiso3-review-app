@@ -2,9 +2,8 @@ main {
   display: grid;
   place-items: center;
 
-  .BookList {
-    display: grid;
-    place-content: center;
+  .BookList__Container {
+    margin-right: 40px;
 
     .BookList__Title {
       list-style: none;

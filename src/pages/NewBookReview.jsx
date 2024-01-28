@@ -9,10 +9,11 @@ import { url } from "../const";
 export default function NewBookReview() {
   const [cookies] = useCookies(); //トークンの取得用
   const navigate = useNavigate(); //送信成功後にホームに戻るようにしておく為
-  const {//送信用のuseForm
+  const {
+    //送信用のuseForm
     register,
     handleSubmit,
-    formState: { errors,isDirty },
+    formState: { errors, isDirty },
   } = useForm({ reValidateMode: "onSubmit", criteriaMode: "all" });
   const [errormessage, setErrormessage] = useState();
 
@@ -23,7 +24,7 @@ export default function NewBookReview() {
         headers: { Authorization: `Bearer ${cookies.token}` },
       })
       .then(() => {
-        navigate("/");//送信成功時ホームに戻るようにする
+        navigate("/"); //送信成功時ホームに戻るようにする
       })
       .catch((err) => {
         setErrormessage(err.response.data.ErrorMessageJP);
@@ -36,7 +37,7 @@ export default function NewBookReview() {
       <main>
         <h2>書籍レビュー投稿フォーム</h2>
         <p>{errormessage}</p>
-        
+
         <form onSubmit={handleSubmit(onSubmit)} className="ReviewForm">
           <label>
             タイトル{errors.title && `:${errors.title.message}`}
@@ -78,7 +79,7 @@ export default function NewBookReview() {
               })}
             />
           </label>
-          <input type="submit" value="送信" disabled={!isDirty}/>
+          <input type="submit" value="送信" disabled={!isDirty} />
         </form>
       </main>
     </>

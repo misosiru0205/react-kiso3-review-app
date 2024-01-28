@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//import { useSelector } from "react-redux";
 import Signup from "./Signup";
 import Login from "./Login";
 import Home from "./Home";
@@ -15,8 +14,8 @@ export default function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/:id/edit" element={<EditBookReview />} />
-          <Route path="/:id" element={<BookReview />} />
+          <Route path="/edit/:id" element={<EditBookReview />} />
+          <Route path="/detail/:id" element={<BookReview />} />
           <Route path="/new" element={<NewBookReview />} />
           <Route path="/profile" element={<EditProfile />} />
           <Route path="/signup" element={<Signup />} />

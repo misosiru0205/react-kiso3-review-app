@@ -4,12 +4,16 @@ import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import { url } from "../const";
+import { setUsername } from "../usernameSlice";
 
 export default function EditProfile() {
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(); //ユーザーネームを取得する用
+  const dispatch = useDispatch();
+  const [cookies] = useCookies(); //トークン取得用
+  const username = useSelector((state) => state.username.setName);
   const [errormessage, setErrormessage] = useState();
   const {
     register,
@@ -23,7 +27,7 @@ export default function EditProfile() {
         headers: { Authorization: `Bearer ${cookies.token}` },
       })
       .then((res) => {
-        setCookie("name", res.data.name); //新しくユーザーネームをCookieに登録
+        dispatch(setUsername(res.data.name));
         alert(`更新成功:${res.data.name}`); //成功時のアラート
         navigate("/");
       })
@@ -50,12 +54,12 @@ export default function EditProfile() {
             <input
               className="EditProfile__Name--Input"
               type="text"
-              defaultValue={cookies.name}
-              placeholder={cookies.name}
+              defaultValue={username}
+              placeholder={username}
               {...register("name", {
                 required: { value: true, message: "入力が必須の項目です。" },
                 validate: (text) => {
-                  if (text === cookies.name) {
+                  if (text === username) {
                     return "同じ名前では送信できません";
                   }
                 },
