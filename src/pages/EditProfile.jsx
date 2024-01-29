@@ -4,16 +4,13 @@ import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import { url } from "../const";
-import { setUsername } from "../usernameSlice";
 
 export default function EditProfile() {
+  const [username,setUsername] = useState()//Headerから値を取得するステート
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [cookies] = useCookies(); //トークン取得用
-  const username = useSelector((state) => state.username.setName);
   const [errormessage, setErrormessage] = useState();
   const {
     register,
@@ -27,7 +24,6 @@ export default function EditProfile() {
         headers: { Authorization: `Bearer ${cookies.token}` },
       })
       .then((res) => {
-        dispatch(setUsername(res.data.name));
         alert(`更新成功:${res.data.name}`); //成功時のアラート
         navigate("/");
       })
@@ -36,14 +32,17 @@ export default function EditProfile() {
       });
   };
 
+
+
   /**defaultValue={cookies.name}で初期値をユーザー名にする
    * ついでにplaceholder={cookies.name} とし全部消してしまっても元が何だったかわかるようにする
    * validateとして入力値とcookies.nameを比べ同じであればerrorを返す
    * useFormで{name:text}で受け取ってonSubmitに送りAPI通信でPUTする
+   * Header呼び出し時にsetstateを渡して値を受け取る
    */
   return (
     <>
-      <Header />
+      <Header setUsername={(setname)=>setUsername(setname)}/>
       <main>
         <h2>ユーザー情報更新</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="EditProfile">

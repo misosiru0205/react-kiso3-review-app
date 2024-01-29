@@ -1,21 +1,15 @@
 import axios from "axios";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { url } from "../const";
+import BooksForm from "./BooksForm";
 
 export default function EditBookReview() {
   const bookID = useParams();//書籍に登録されているIDを取得
   const navigate = useNavigate();
   const [errormessage, setErrormessage] = useState();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ reValidateMode: "onSubmit", criteriaMode: "all" });
   const [coolies] = useCookies();//トークン取得用
   const [response, setResponse] = useState();//書籍詳細取得用
 
@@ -53,7 +47,7 @@ export default function EditBookReview() {
    * 確認ダイアログ？としてwindow.confirmを使用
    * OKが押されれば削除を実行し、alertをならした後に一覧画面へ
    */
-  function ReviewDelete() {
+  function deleteReview() {
     const confirm = window.confirm("削除しますか？");
     if (confirm) {
       axios
@@ -79,64 +73,10 @@ export default function EditBookReview() {
   return (
     <>
       <Header />
-      {response && (
-        <main>
-          <form onSubmit={handleSubmit(onSubmit)} className="ReviewForm">
-            {errormessage && <p>{errormessage}</p>}
-            {errors.title && <p>{errors.title.message}</p>}
-            <label>
-              タイトル
-              <input
-                className="ReviewForm__Title"
-                type="text"
-                defaultValue={response.title}
-                {...register("title", {
-                  required: { value: true, message: "入力が必須の項目です。" },
-                })}
-              />
-            </label>
-            <label>
-              URL
-              <input
-                className="ReviewForm__url"
-                type="text"
-                defaultValue={response.url}
-                {...register("url", {
-                  required: { value: true, message: "入力が必須の項目です。" },
-                })}
-              />
-            </label>
-            <label>
-              詳細
-              <textarea
-                className="ReviewForm__detail"
-                type="textarea"
-                defaultValue={response.detail}
-                {...register("detail", {
-                  required: { value: true, message: "入力が必須の項目です。" },
-                })}
-              />
-            </label>
-            <label>
-              レビュー
-              <textarea
-                className="ReviewForm__review"
-                type="textarea"
-                defaultValue={response.review}
-                {...register("review", {
-                  required: { value: true, message: "入力が必須の項目です。" },
-                })}
-              />
-            </label>
-            <input type="submit" value="更新" />
-          </form>
-          <input
-            type="button"
-            value="レビュー削除"
-            onClick={() => ReviewDelete()}
-          />
-        </main>
-      )}
+      <main>
+        <h2>書籍編集フォーム</h2>
+      <BooksForm onSubmit={onSubmit} deleteReview={()=>deleteReview()} errormessage={errormessage} response={response}/>
+      </main>
     </>
   );
 }

@@ -39,23 +39,24 @@ export default function Home() {
         })
         .then((res) => {
           setResponse(res.data);
-          dispatch(loadEnd()); //書籍情報取得終了
         })
-        .catch((err) => {
-          dispatch(loadEnd()) //書籍情報取得終了
+        .catch((err) => {  
           alert(`エラー:${err.response.data.ErrorMessageJP}`);
-        });
+        }).finally(()=>{
+          dispatch(loadEnd())//書籍情報取得終了
+        })
     } else {
       axios
         .get(`${url}/public/books?offset=${count * 10}`)
         .then((res) => {
           setResponse(res.data);
-          dispatch(loadEnd()); //書籍情報取得終了
         })
         .catch((err) => {
-          dispatch(loadEnd()); //書籍情報取得終了
           alert(`エラー:${err.response.data.ErrorMessageJP}`);
-        });
+        })
+        .finally(()=>{
+          dispatch(loadEnd()); //書籍情報取得終了
+        })
     }
     //第二引数にcountを指定しカウントが更新されれば一覧も更新されるようにする
   }, [count]);
